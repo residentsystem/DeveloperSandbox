@@ -1,0 +1,13 @@
+{
+  "ConnectionString": {
+    "Development": "server=172.30.13.237;port=5507;database=bookmark;user=rsbookmarkdev01;password=MySQL@1-rule",
+    "Staging": "server=<server>;port=3306;database=<database>;user=<username>;password=<password>",
+    "Production": "server=<server>;port=3306;database=<database>;user=<username>;password=<password>"
+  },
+
+  "BookmarkSettings": {
+    "Title": "Resident Bookmarks Development",
+    "ShowLimit": "6",
+    "SortWebsite": "date"
+  }
+}
