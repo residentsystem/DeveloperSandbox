@@ -1,0 +1,28 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: build-webserver-image.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Build web server image and push to repository.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Build web server image
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Build the image and push to repository    
+    - name: Build container image and push to repository   
+      containers.podman.podman_image:
+        name: residentsystem
+        path: ~/container/gcms/DeveloperSandbox/webserver
+        build:
+          format: docker
+        push: true
+        tag: '{{web_image}}'
+        username: '{{quay_username}}'
+        password: '{{quay_password}}'
+        push_args:
+          dest: quay.io/gresident

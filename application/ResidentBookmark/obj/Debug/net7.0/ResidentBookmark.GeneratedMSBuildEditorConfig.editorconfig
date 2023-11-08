@@ -1,0 +1,81 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ResidentBookmark
+build_property.RootNamespace = ResidentBookmark
+build_property.ProjectDir = /home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Add/AddLabel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRkL0FkZExhYmVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Add/AddWebsite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRkL0FkZFdlYnNpdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Delete/DeleteLabel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGVsZXRlL0RlbGV0ZUxhYmVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Delete/DeleteWebsite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGVsZXRlL0RlbGV0ZVdlYnNpdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Edit/EditLabel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdC9FZGl0TGFiZWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Edit/EditWebsite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdC9FZGl0V2Vic2l0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Error/Production/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IvUHJvZHVjdGlvbi9FcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Error/Staging/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IvU3RhZ2luZy9FcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Label.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTGFiZWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Shared/_CookieConsentPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19Db29raWVDb25zZW50UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/eric.lacroix/container/gcms/DeveloperSandbox/application/ResidentBookmark/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

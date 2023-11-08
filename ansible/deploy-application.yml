@@ -1,0 +1,23 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: deploy-application.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Deploy application from image.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Deploy application from image
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Deploy the application
+    - name: Deploy new application from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: app_build_info
+    - debug: 
+        msg: "{{app_build_info}}"

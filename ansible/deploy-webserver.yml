@@ -1,0 +1,32 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: deploy-webserver.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Deploy web server from image.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Deploy web server from image
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Deploy the web server
+    - name: Deploy new web server from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{web_image}} --name {{web_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: web_build_info
+    - debug: 
+        msg: "{{web_build_info}}"
+    
+    # Create the route
+    - name: Create new route
+      ansible.builtin.shell: 'oc create route passthrough {{web_deployment}} --service={{web_deployment}} --port={{web_https_port}}'
+      args:
+        executable: /bin/bash
+      register: web_route_info
+    - debug: 
+        msg: "{{web_route_info}}"

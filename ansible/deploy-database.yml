@@ -1,0 +1,23 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: deploy-database.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Deploy database from image.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Deploy database from image
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Deploy the database
+    - name: Deploy new database from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{data_image}} --name {{data_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: data_build_info
+    - debug: 
+        msg: "{{data_build_info}}"

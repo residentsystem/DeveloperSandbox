@@ -1,0 +1,20 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: replicate-application.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Scale application deployment.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Scale application deployment
+  hosts: controlnode
+  connection: local
+  tasks:
+    - name: Scale application deployment
+      ansible.builtin.command: 'oc scale deployment {{app_deployment}} --replicas={{replica}}'
+      register: scale_app_deployment_info
+    - debug: 
+        msg: "{{scale_app_deployment_info}}"

@@ -1,0 +1,20 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: replicate-webserver.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Scale webserver deployment.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Scale webserver deployment
+  hosts: controlnode
+  connection: local
+  tasks:
+    - name: Scale web deployment
+      ansible.builtin.command: 'oc scale deployment {{web_deployment}} --replicas={{replica}}'
+      register: scale_web_deployment_info
+    - debug: 
+        msg: "{{scale_web_deployment_info}}"
