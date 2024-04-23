@@ -1,0 +1,75 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: data-bookmark
+  namespace: gresident-dev
+  uid: 8a7cecf6-f847-4588-85a0-8b16524ff7d7
+  resourceVersion: '1619441428'
+  creationTimestamp: '2023-12-13T18:55:27Z'
+  labels:
+    app: data-bookmark
+    app.kubernetes.io/component: data-bookmark
+    app.kubernetes.io/instance: data-bookmark
+    app.kubernetes.io/part-of: bookmark
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: v1
+      time: '2023-12-13T18:55:27Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/part-of': {}
+        'f:spec':
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":3306,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":5507,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  clusterIP: 172.30.250.140
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 3306-tcp
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+    - name: 5507-tcp
+      protocol: TCP
+      port: 5507
+      targetPort: 5507
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.250.140
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app.kubernetes.io/part-of: bookmark
+    deployment: data-bookmark
+status:
+  loadBalancer: {}

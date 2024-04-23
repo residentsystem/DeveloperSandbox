@@ -32,7 +32,7 @@ web_container="web-bookmark-dev"
 podman build --tag $web_container -f Dockerfile
 
 # Run container
-## podman run --name $web_container -dt --pod $web_pod localhost/$web_container:latest
+podman run --name $web_container -dt --pod $web_pod localhost/$web_container:latest
 
 # Get container Id
 web_dev_id=$(podman image inspect --format '{{ .Id }}' $web_container)

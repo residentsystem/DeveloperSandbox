@@ -14,7 +14,7 @@
   connection: local
   tasks:
     # Deploy the application
-    - name: Deploy new application from image
+    - name: Deploy application from image
       ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
       args:
         executable: /bin/bash

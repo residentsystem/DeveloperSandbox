@@ -1,0 +1,35 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: data-bookmark-pvc
+  namespace: gresident-dev
+  uid: 4b5ca76c-6db9-4d5b-a8fc-a328ccee87b5
+  resourceVersion: '1619531991'
+  creationTimestamp: '2023-12-13T19:26:26Z'
+  finalizers:
+    - kubernetes.io/pvc-protection
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2023-12-13T19:26:26Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:accessModes': {}
+          'f:resources':
+            'f:requests':
+              .: {}
+              'f:storage': {}
+          'f:storageClassName': {}
+          'f:volumeMode': {}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: gp3
+  volumeMode: Filesystem
+status:
+  phase: Pending

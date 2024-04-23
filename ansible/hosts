@@ -5,16 +5,19 @@ controlnode:
     192.168.116.128:
   vars:
     quay_repository: quay.io/gresident/residentsystem
+    git_repository: https://github.com/residentsystem/ResidentBookmark.git
 
     application: bookmark
 
-    data_image: data-bookmark
+    data_image: data-bookmark-v1.0
     data_deployment: data-bookmark
+    data_pvc: data-bookmark-pvc
 
-    app_image: app-bookmark
+    app_image: app-bookmark-v1.0
     app_deployment: app-bookmark
+    app_deployment_git: app-bookmark-git
 
-    web_image: web-bookmark
+    web_image: web-bookmark-v1.0
     web_deployment: web-bookmark
     web_https_port: 5444
 
@@ -32,8 +35,8 @@ controlnode:
     quay_username: gresident
     quay_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
-          61366465336664666263633238393263633139303339393033383463373739616663646664316365
-          3139653032636663323763663730656263653166346664360a323436633830646437623162303561
-          64656130346166356639363731643335636463383064386165313266653132366165383839346436
-          3463353032313738370a633530633730663436353861613163353461616236313865303438636566
-          3131
+          32663530303537343264303766316163666232303065393637366536373634303134323036393438
+          3736393062323739613736313463646661626438613363390a303862313732326330373638333637
+          63613561383335646438653964633539666135653739656431623261633431316561363665376334
+          6463326137326466640a613063356232303835346535643930303866303630383533356137613231
+          6232

@@ -1,0 +1,68 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: deploy-bookmark.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Deploy Bookmark resources in OpenShift.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Deploy Bookmark resources
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Deploy the database persistent volume claim
+    - name: Deploy database persistent volume claim
+      ansible.builtin.shell: 'oc create -f ../database/data-pvc-dev.yml'
+      args:
+        executable: /bin/bash
+      register: data_pvc_info
+    - debug: 
+        msg: "{{data_pvc_info}}"
+
+    # Deploy the database service
+    - name: Deploy database service
+      ansible.builtin.shell: 'oc create -f ../database/data-service-dev.yml'
+      args:
+        executable: /bin/bash
+      register: data_service_info
+    - debug: 
+        msg: "{{data_service_info}}"
+
+    # Deploy the database deployment
+    - name: Deploy database deployment
+      ansible.builtin.shell: 'oc create -f ../database/data-deployment-dev.yml'
+      args:
+        executable: /bin/bash
+      register: data_deployment_info
+    - debug: 
+        msg: "{{data_deployment_info}}"
+    
+    # Deploy the application
+    - name: Deploy application from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: app_build_info
+    - debug: 
+        msg: "{{app_build_info}}"
+    
+    # Deploy the web server
+    - name: Deploy web server from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{web_image}} --name {{web_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: web_build_info
+    - debug: 
+        msg: "{{web_build_info}}"
+    
+    # Create the route
+    - name: Create route
+      ansible.builtin.shell: 'oc create route passthrough {{web_deployment}} --service={{web_deployment}} --port={{web_https_port}}'
+      args:
+        executable: /bin/bash
+      register: web_route_info
+    - debug: 
+        msg: "{{web_route_info}}"

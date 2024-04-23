@@ -1,32 +1,18 @@
 ---
 # ----------------------------------------------------------------------------------------------
-# Script Name: remove-bookmark.yml
+# Script Name: remove-database.yml
 # Version: 1.0
 # Author: Eric Lacroix
 # Date: 24/10/2023
 #
-# Description: Remove Bookmark resources in OpenShift.
+# Description: Remove database resources in OpenShift.
 #
 # ----------------------------------------------------------------------------------------------
 
-- name: Remove Bookmark resources
+- name: Remove database resources
   hosts: controlnode
   connection: local
   tasks:
-    # Remove web deployment from cluster
-    - name: Remove web deployment from cluster
-      ansible.builtin.command: 'oc delete all --selector app={{web_deployment}}'
-      register: web_deployment_info
-    - debug: 
-        msg: "{{web_deployment_info}}"
-    
-    # Remove application deployment from cluster
-    - name: Remove application deployment from cluster
-      ansible.builtin.command: 'oc delete all --selector app={{app_deployment}}'
-      register: app_deployment_info
-    - debug: 
-        msg: "{{app_deployment_info}}"
-    
     # Remove database deployment from cluster
     - name: Remove database deployment from cluster
       ansible.builtin.command: 'oc delete all --selector app={{data_deployment}}'

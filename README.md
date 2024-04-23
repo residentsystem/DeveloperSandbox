@@ -35,7 +35,7 @@ The server is running on Red Hat Enterprise Linux with podman installed.
 
 > \\> firewall-cmd --reload
 
-## Build the containers
+## Deploy the containers localy
 
 > \\> ./projectbuild.sh
 
@@ -50,6 +50,48 @@ Connect to the database server and run all sql commands found in ./database/data
 ## Verify the installation
 
 curl -v https://localhost:5444
+
+## Deploy in openshift Developer Sandbox
+
+### Login to image repository
+
+> \\> oc login --token=sha256~123456789 --server=https://api.sandbox-m3.1530.p1.openshiftapps.com:6443
+
+### Build Database image
+
+> \\> ansible-playbook -k -i ./hosts --vault-password-file ../../ansible-vault.txt ./build-database-image.yml
+
+### Deploy Database image
+
+> \\> ansible-playbook -k -i ./hosts ./deploy-database.yml
+
+### Build Application image
+
+> \\> ansible-playbook -k -i ./hosts --vault-password-file ../../ansible-vault.txt ./build-application-image.yml
+
+### Build new version of Application image
+
+> \\> ansible-playbook -k -i ./hosts --vault-password-file ../../ansible-vault.txt ./build-application-image.yml --extra-vars "app_image=app-bookmark-v2.0"
+
+### Deploy Application image
+
+> \\> ansible-playbook -k -i ./hosts ./deploy-application.yml
+
+### Build Webserver image
+
+> \\> ansible-playbook -k -i ./hosts --vault-password-file ../../ansible-vault.txt ./build-webserver-image.yml
+
+### Deploy Webserver image
+
+> \\> ansible-playbook -k -i ./hosts ./deploy-webserver.yml
+
+### Remove all deployments
+
+> \\> ansible-playbook -k -i ./hosts ./remove-bookmark.yml
+
+### Switch deployment image version
+
+> \\> oc set image deploy/app-bookmark app-bookmark=quay.io/gresident/residentsystem/app-bookmark-v2.0
 
 ## Built With
 * Visual Studio Code - Code editor

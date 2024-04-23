@@ -1,0 +1,103 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '3'
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"data-bookmark:data-bookmark-v1.0"},"fieldPath":"spec.template.spec.containers[?(@.name==\"data-bookmark\")].image"}]
+    openshift.io/generated-by: OpenShiftNewApp
+  resourceVersion: '1619541174'
+  name: data-bookmark
+  uid: 7850ab3d-01ca-44e1-9023-3362798ce75f
+  creationTimestamp: '2023-12-13T19:27:43Z'
+  generation: 3
+  managedFields:
+    - manager: oc
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-12-13T19:27:43Z'
+    - manager: openshift-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-12-13T19:27:43Z'
+    - manager: Mozilla
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-12-13T19:29:13Z'
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2023-12-13T19:29:24Z'
+      subresource: status
+  namespace: gresident-dev
+  labels:
+    app: data-bookmark
+    app.kubernetes.io/component: data-bookmark
+    app.kubernetes.io/instance: data-bookmark
+    app.kubernetes.io/part-of: bookmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: bookmark
+      deployment: data-bookmark
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/part-of: bookmark
+        deployment: data-bookmark
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      volumes:
+        - name: data-bookmark-pvc
+          persistentVolumeClaim:
+            claimName: data-bookmark-pvc
+      containers:
+        - name: data-bookmark
+          image: >-
+            quay.io/gresident/residentsystem@sha256:dd907fe68b3a647180f23624bdf71cf598b5d591fe01d52b23c8697bbf3ab910
+          ports:
+            - containerPort: 5507
+              protocol: TCP
+            - containerPort: 3306
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: data-bookmark-pvc
+              mountPath: /var/lib/mysql
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 3
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2023-12-13T19:27:45Z'
+      lastTransitionTime: '2023-12-13T19:27:45Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2023-12-13T19:29:24Z'
+      lastTransitionTime: '2023-12-13T19:27:43Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "data-bookmark-78fc66f9d4" has successfully progressed.

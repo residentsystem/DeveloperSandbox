@@ -1,0 +1,41 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: deploy-database-pvc.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Deploy database from image with persistent storage.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Deploy database from image
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Deploy the database persistent volume claim
+    - name: Deploy database persistent volume claim
+      ansible.builtin.shell: 'oc create -f ../database/data-pvc-dev.yml'
+      args:
+        executable: /bin/bash
+      register: data_pvc_info
+    - debug: 
+        msg: "{{data_pvc_info}}"
+
+    # Deploy the database service
+    - name: Deploy database service
+      ansible.builtin.shell: 'oc create -f ../database/data-service-dev.yml'
+      args:
+        executable: /bin/bash
+      register: data_service_info
+    - debug: 
+        msg: "{{data_service_info}}"
+
+    # Deploy the database deployment
+    - name: Deploy database deployment
+      ansible.builtin.shell: 'oc create -f ../database/data-deployment-dev.yml'
+      args:
+        executable: /bin/bash
+      register: data_deployment_info
+    - debug: 
+        msg: "{{data_deployment_info}}"

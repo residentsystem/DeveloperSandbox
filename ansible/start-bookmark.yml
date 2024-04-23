@@ -1,0 +1,35 @@
+---
+# ----------------------------------------------------------------------------------------------
+# Script Name: start-bookmark.yml
+# Version: 1.0
+# Author: Eric Lacroix
+# Date: 24/10/2023
+#
+# Description: Start Bookmark resources in OpenShift.
+#
+# ----------------------------------------------------------------------------------------------
+
+- name: Start Bookmark resources
+  hosts: controlnode
+  connection: local
+  tasks:
+    # Start database deployment
+    - name: Start database deployment
+      ansible.builtin.command: 'oc scale deployment {{data_deployment}} --replicas=1'
+      register: scale_data_deployment_info
+    - debug: 
+        msg: "{{scale_data_deployment_info}}"
+    
+    # Start application deployment
+    - name: Start application deployment
+      ansible.builtin.command: 'oc scale deployment {{app_deployment}} --replicas=1'
+      register: scale_app_deployment_info
+    - debug: 
+        msg: "{{scale_app_deployment_info}}"
+    
+    # Start web deployment
+    - name: Start web deployment
+      ansible.builtin.command: 'oc scale deployment {{web_deployment}} --replicas=1'
+      register: scale_web_deployment_info
+    - debug: 
+        msg: "{{scale_web_deployment_info}}"

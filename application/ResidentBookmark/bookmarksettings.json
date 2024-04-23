@@ -1,12 +1,12 @@
 {
   "ConnectionString": {
-    "Development": "server=172.30.127.226;port=5507;database=bookmark;user=rsbookmarkdev01;password=MySQL@1-rule",
+    "Development": "server=data-bookmark.gresident-dev.svc.cluster.local;port=5507;database=bookmark;user=rsbookmarkdev01;password=MySQL@1-rule",
     "Staging": "server=<server>;port=3306;database=<database>;user=<username>;password=<password>",
     "Production": "server=<server>;port=3306;database=<database>;user=<username>;password=<password>"
   },
 
   "BookmarkSettings": {
-    "Title": "Resident Bookmarks Development",
+    "Title": "Resident Bookmarks Version 2.0",
     "ShowLimit": "6",
     "SortWebsite": "date"
   }

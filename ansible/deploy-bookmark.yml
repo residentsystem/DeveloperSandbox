@@ -1,20 +1,38 @@
 ---
 # ----------------------------------------------------------------------------------------------
-# Script Name: deploy-webserver.yml
+# Script Name: deploy-bookmark.yml
 # Version: 1.0
 # Author: Eric Lacroix
 # Date: 24/10/2023
 #
-# Description: Deploy web server from image.
+# Description: Deploy Bookmark resources in OpenShift.
 #
 # ----------------------------------------------------------------------------------------------
 
-- name: Deploy web server from image
+- name: Deploy Bookmark resources
   hosts: controlnode
   connection: local
   tasks:
+    # Deploy the database
+    - name: Deploy database from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{data_image}} --name {{data_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: data_build_info
+    - debug: 
+        msg: "{{data_build_info}}"
+    
+    # Deploy the application
+    - name: Deploy application from image
+      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      args:
+        executable: /bin/bash
+      register: app_build_info
+    - debug: 
+        msg: "{{app_build_info}}"
+    
     # Deploy the web server
-    - name: Deploy new web server from image
+    - name: Deploy web server from image
       ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{web_image}} --name {{web_deployment}} --labels app.kubernetes.io/part-of={{application}}'
       args:
         executable: /bin/bash
