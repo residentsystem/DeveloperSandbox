@@ -13,30 +13,37 @@
   hosts: controlnode
   connection: local
   tasks:
+    # Remove web route from cluster
+    - name: Remove web route from cluster
+      ansible.builtin.command: 'oc delete -f ../webserver/deployment/web-route.yml'
+      register: web_route_info
+    - debug: 
+        msg: "{{web_route_info}}"
+
     # Remove web deployment from cluster
     - name: Remove web deployment from cluster
-      ansible.builtin.command: 'oc delete all --selector app={{web_deployment}}'
+      ansible.builtin.command: 'oc delete -f ../webserver/deployment/web-deployment-v1.0.yml'
       register: web_deployment_info
     - debug: 
         msg: "{{web_deployment_info}}"
-    
+
     # Remove application deployment from cluster
     - name: Remove application deployment from cluster
-      ansible.builtin.command: 'oc delete all --selector app={{app_deployment}}'
+      ansible.builtin.command: 'oc delete -f ../application/deployment/app-deployment-v1.0.yml'
       register: app_deployment_info
     - debug: 
         msg: "{{app_deployment_info}}"
-    
+
     # Remove database deployment from cluster
     - name: Remove database deployment from cluster
-      ansible.builtin.command: 'oc delete all --selector app={{data_deployment}}'
+      ansible.builtin.command: 'oc delete -f ../database/deployment/data-deployment-v1.0.yml'
       register: data_deployment_info
     - debug: 
         msg: "{{data_deployment_info}}"
     
     # Remove database persistent volume claim from cluster
     - name: Remove database persistent volume claim from cluster
-      ansible.builtin.command: 'oc delete persistentvolumeclaim {{data_pvc}}'
+      ansible.builtin.command: 'oc delete -f ../database/deployment/data-pvc.yml'
       register: data_pvc_info
     - debug: 
         msg: "{{data_pvc_info}}"

@@ -57,7 +57,7 @@ spec:
       containers:
         - name: data-bookmark
           image: >-
-            quay.io/gresident/residentsystem@sha256:dd907fe68b3a647180f23624bdf71cf598b5d591fe01d52b23c8697bbf3ab910
+            quay.io/gresident/residentsystem@sha256:906c23a3962ff154c569457e4eda0c0344b9f6586be603d9371b3e616d1c559f
           ports:
             - containerPort: 5507
               protocol: TCP

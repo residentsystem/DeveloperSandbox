@@ -1,0 +1,273 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: '1'
+    image.openshift.io/triggers: '[{"from":{"kind":"ImageStreamTag","name":"data-bookmark:data-bookmark-v1.0"},"fieldPath":"spec.template.spec.containers[?(@.name==\"data-bookmark\")].image"}]'
+    openshift.io/generated-by: OpenShiftNewApp
+  resourceVersion: '2158860289'
+  name: data-bookmark
+  uid: 96ce88d3-833d-4f0a-83ba-76bb6d11b960
+  creationTimestamp: '2024-04-25T15:20:03Z'
+  generation: 1
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: apps/v1
+      time: '2024-04-25T15:20:03Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:image.openshift.io/triggers': {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/part-of': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:replicas': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:rollingUpdate':
+              .: {}
+              'f:maxSurge': {}
+              'f:maxUnavailable': {}
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:annotations':
+                .: {}
+                'f:openshift.io/generated-by': {}
+              'f:labels':
+                .: {}
+                'f:app.kubernetes.io/part-of': {}
+                'f:deployment': {}
+            'f:spec':
+              'f:containers':
+                'k:{"name":"data-bookmark"}':
+                  'f:image': {}
+                  'f:volumeMounts':
+                    .: {}
+                    'k:{"mountPath":"/var/lib/mysql"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":3306,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":5507,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:securityContext': {}
+              'f:terminationGracePeriodSeconds': {}
+              'f:volumes':
+                .: {}
+                'k:{"name":"data-bookmark-pvc"}':
+                  .: {}
+                  'f:name': {}
+                  'f:persistentVolumeClaim':
+                    .: {}
+                    'f:claimName': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2024-04-25T15:20:17Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:availableReplicas': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:readyReplicas': {}
+          'f:replicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+  namespace: gresident-dev
+  labels:
+    app: data-bookmark
+    app.kubernetes.io/component: data-bookmark
+    app.kubernetes.io/instance: data-bookmark
+    app.kubernetes.io/part-of: bookmark
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: bookmark
+      deployment: data-bookmark
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: bookmark
+        deployment: data-bookmark
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+    spec:
+      volumes:
+        - name: data-bookmark-pvc
+          persistentVolumeClaim:
+            claimName: data-bookmark-pvc
+      containers:
+        - name: data-bookmark
+          image: 'quay.io/gresident/residentsystem@sha256:906c23a3962ff154c569457e4eda0c0344b9f6586be603d9371b3e616d1c559f'
+          ports:
+            - containerPort: 5507
+              protocol: TCP
+            - containerPort: 3306
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - name: data-bookmark-pvc
+              mountPath: /var/lib/mysql
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 1
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2024-04-25T15:20:17Z'
+      lastTransitionTime: '2024-04-25T15:20:17Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2024-04-25T15:20:17Z'
+      lastTransitionTime: '2024-04-25T15:20:03Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "data-bookmark-6c55cb4788" has successfully progressed.
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: data-bookmark
+  namespace: gresident-dev
+  uid: cf51baa8-c248-4f5c-a3b2-deaf6852268d
+  resourceVersion: '2158859044'
+  creationTimestamp: '2024-04-25T15:19:52Z'
+  labels:
+    app: data-bookmark
+    app.kubernetes.io/component: data-bookmark
+    app.kubernetes.io/instance: data-bookmark
+    app.kubernetes.io/part-of: bookmark
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  managedFields:
+    - manager: kubectl-create
+      operation: Update
+      apiVersion: v1
+      time: '2024-04-25T15:19:52Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:openshift.io/generated-by': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/part-of': {}
+        'f:spec':
+          'f:clusterIPs': {}
+          'f:sessionAffinity': {}
+          'f:clusterIP': {}
+          'f:type': {}
+          'f:ipFamilyPolicy': {}
+          'f:selector': {}
+          'f:ipFamilies': {}
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":3306,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":5507,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+spec:
+  clusterIP: 172.30.250.140
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 3306-tcp
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
+    - name: 5507-tcp
+      protocol: TCP
+      port: 5507
+      targetPort: 5507
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.250.140
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app.kubernetes.io/part-of: bookmark
+    deployment: data-bookmark
+status:
+  loadBalancer: {}

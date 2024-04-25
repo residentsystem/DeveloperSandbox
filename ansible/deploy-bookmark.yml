@@ -13,18 +13,27 @@
   hosts: controlnode
   connection: local
   tasks:
-    # Deploy the database
-    - name: Deploy database from image
-      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{data_image}} --name {{data_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+    # Deploy the database persistent volume claim
+    - name: Deploy database persistent volume claim
+      ansible.builtin.shell: 'oc create -f ../database/deployment/data-pvc.yml'
       args:
         executable: /bin/bash
-      register: data_build_info
+      register: data_pvc_info
     - debug: 
-        msg: "{{data_build_info}}"
+        msg: "{{data_pvc_info}}"
+
+    # Deploy the database deployment
+    - name: Deploy database deployment
+      ansible.builtin.shell: 'oc create -f ../database/deployment/data-deployment-v1.0.yml'
+      args:
+        executable: /bin/bash
+      register: data_deployment_info
+    - debug: 
+        msg: "{{data_deployment_info}}"
     
     # Deploy the application
     - name: Deploy application from image
-      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      ansible.builtin.shell: 'oc create -f ../application/deployment/{{app_deployment_file}}'
       args:
         executable: /bin/bash
       register: app_build_info
@@ -33,7 +42,7 @@
     
     # Deploy the web server
     - name: Deploy web server from image
-      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{web_image}} --name {{web_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      ansible.builtin.shell: 'oc create -f ../webserver/deployment/web-deployment-v1.0.yml'
       args:
         executable: /bin/bash
       register: web_build_info
@@ -42,7 +51,7 @@
     
     # Create the route
     - name: Create route
-      ansible.builtin.shell: 'oc create route passthrough {{web_deployment}} --service={{web_deployment}} --port={{web_https_port}}'
+      ansible.builtin.shell: 'oc create -f ../webserver/deployment/web-route.yml'
       args:
         executable: /bin/bash
       register: web_route_info

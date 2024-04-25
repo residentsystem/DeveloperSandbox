@@ -15,7 +15,7 @@
   tasks:
     # Deploy the web server
     - name: Deploy new web server from image
-      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{web_image}} --name {{web_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      ansible.builtin.shell: 'oc create -f ../webserver/deployment/web-deployment-v1.0.yml'
       args:
         executable: /bin/bash
       register: web_build_info
@@ -24,7 +24,7 @@
     
     # Create the route
     - name: Create route
-      ansible.builtin.shell: 'oc create route passthrough {{web_deployment}} --service={{web_deployment}} --port={{web_https_port}}'
+      ansible.builtin.shell: 'oc create -f ../webserver/deployment/web-route.yml'
       args:
         executable: /bin/bash
       register: web_route_info

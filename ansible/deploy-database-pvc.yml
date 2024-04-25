@@ -15,25 +15,16 @@
   tasks:
     # Deploy the database persistent volume claim
     - name: Deploy database persistent volume claim
-      ansible.builtin.shell: 'oc create -f ../database/data-pvc-dev.yml'
+      ansible.builtin.shell: 'oc create -f ../database/deployment/data-pvc.yml'
       args:
         executable: /bin/bash
       register: data_pvc_info
     - debug: 
         msg: "{{data_pvc_info}}"
 
-    # Deploy the database service
-    - name: Deploy database service
-      ansible.builtin.shell: 'oc create -f ../database/data-service-dev.yml'
-      args:
-        executable: /bin/bash
-      register: data_service_info
-    - debug: 
-        msg: "{{data_service_info}}"
-
     # Deploy the database deployment
     - name: Deploy database deployment
-      ansible.builtin.shell: 'oc create -f ../database/data-deployment-dev.yml'
+      ansible.builtin.shell: 'oc create -f ../database/deployment/data-deployment-v1.0.yml'
       args:
         executable: /bin/bash
       register: data_deployment_info

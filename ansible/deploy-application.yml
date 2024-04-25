@@ -15,7 +15,8 @@
   tasks:
     # Deploy the application
     - name: Deploy application from image
-      ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      #ansible.builtin.shell: 'oc new-app --image={{quay_repository}}:{{app_image}} --name {{app_deployment}} --labels app.kubernetes.io/part-of={{application}}'
+      ansible.builtin.shell: 'oc create -f ../application/deployment/{{app_deployment_file}}'
       args:
         executable: /bin/bash
       register: app_build_info
